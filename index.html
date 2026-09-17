@@ -111,18 +111,25 @@
             transform: scale(0.9);
         }
 
-        .input-display {
-            min-height: 50px;
+        /* Input real interactiu per a mòbil i escriptori */
+        .input-real {
+            width: 100%;
+            height: 52px;
             border: 2px solid var(--adhoc-black);
-            display: flex;
-            align-items: center;
-            justify-content: center;
             font-family: 'Oswald', sans-serif;
-            font-size: 1.5rem;
-            letter-spacing: 3px;
+            font-size: 1.6rem;
+            letter-spacing: 4px;
             background-color: var(--adhoc-white);
             text-transform: uppercase;
-            padding: 0 10px;
+            text-align: center;
+            color: var(--adhoc-black);
+            border-radius: 0;
+        }
+
+        .input-real:focus {
+            outline: none;
+            background-color: #FFFDE6;
+            border-color: var(--adhoc-black);
         }
 
         .actions-grid {
@@ -236,12 +243,13 @@
 
     <div>
         <p style="text-align: center; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; margin-bottom: 6px;">
-            Fes clic a les lletres o utilitza el teclat:
+            Fes clic a les lletres o escriu directament:
         </p>
         <div class="letters-container" id="letters-box"></div>
     </div>
 
-    <div class="input-display" id="current-word"></div>
+    <!-- Entrada real amb suport per a teclat virtual mòbil -->
+    <input type="text" id="user-input" class="input-real" placeholder="ESCRIU AQUÍ..." autocomplete="off" spellcheck="false" autofocus>
 
     <div class="actions-grid">
         <button class="btn-delete" onclick="deleteLetter()">ESBORRAR</button>
@@ -284,7 +292,7 @@
         { dia: 16, lletres: ["P","A","R","T","I","C","I","P","A","C","I","O"], pista: "Possibilitat real d'intervenir en un procés i incidir en la construcció de respostes. (12 lletres)", solucio: "PARTICIPACIÓ", definicio: "Aportar coneixement i capacitat real de decisió.", anagrames: ["PART", "PAPA", "CARTA", "CAPA", "COPA", "PICA"] },
         { dia: 17, lletres: ["P","R","O","T","O","T","I","P"], pista: "Primera forma que donem a una idea per provar-la i millorar-la. (8 lletres)", solucio: "PROTOTIP", definicio: "Eina per aprendre fent abans de donar una resposta per definitiva.", anagrames: ["PORT", "TRIP", "TIPO", "TOP", "PORTA"] },
         { dia: 18, lletres: ["R","E","S","P","O","N","S","A","B","I","L","I","T","A","T"], pista: "Compromís d'assumir les conseqüències de les decisions pròpies. (15 lletres)", solucio: "RESPONSABILITAT", definicio: "Més autonomia implica més informació, criteri i capacitat de demanar ajuda.", anagrames: ["POSA", "PISO", "POBLE", "TENS", "TALA", "SOBRE"] },
-        { dia: 19, lletres: ["T","R","A","N","S","F","E","R","E","N","C","I","A"], pista: "Convertir allò après perquè una altra organització ho pugui adaptar. (13 lletres)", solucio: "TRANSFERÈNCIA", definicio: "Fer que un aprenentatge no acabi amb el projecte que l'ha generat.", anagrames: ["TREN", "CARTA", "FER", "TERA", "FERA"] },
+        { dia: 19, lletres: ["T","R","A","N","S","F","E","R","E","N","C","I","A"], pista: "Convertir allò aprendre perquè una altra organització ho pugui adaptar. (13 lletres)", solucio: "TRANSFERÈNCIA", definicio: "Fer que un aprenentatge no acabi amb el projecte que l'ha generat.", anagrames: ["TREN", "CARTA", "FER", "TERA", "FERA"] },
         { dia: 20, lletres: ["V","I","N","C","L","E"], pista: "Connexió activa entre persones que permet confiar i construir. (6 lletres)", solucio: "VINCLE", definicio: "Essencial per activar comunitats. La metodologia 3H el situa al Heart.", anagrames: ["VIC", "LLEI", "CINE", "VIL", "VEI", "NOU"] },
         { dia: 21, lletres: ["A","C","A","D","E","M","I","A"], pista: "Espai on parem per pensar allò que fem i compartir coneixement. (8 lletres)", solucio: "ACADEMIA", definicio: "Connecta projectes, recerca aplicada, formació i comunitat.", anagrames: ["CADA", "MIDA", "AMIC", "CAMI", "DAMA"] },
         { dia: 22, lletres: ["C","O","M","U","N","I","T","A","T"], pista: "Grup de persones que comparteixen un repte i aprenen conjuntament. (9 lletres)", solucio: "COMUNITAT", definicio: "Permet passar de compartir informació a transformar la pràctica.", anagrames: ["MUNT", "TOMA", "MINA", "CUNA", "TACO"] },
@@ -299,7 +307,6 @@
     ];
 
     let currentChallenge = null;
-    let currentInput = "";
     let foundWordsSet = new Set();
     let hasMasterWord = false;
     let currentScrambled = [];
@@ -346,18 +353,17 @@
     }
 
     function addLetter(char) {
-        currentInput += char;
-        updateDisplay();
+        const inputField = document.getElementById('user-input');
+        inputField.value += char;
+        document.getElementById('feedback').innerText = "";
+        inputField.focus();
     }
 
     function deleteLetter() {
-        currentInput = currentInput.slice(0, -1);
-        updateDisplay();
-    }
-
-    function updateDisplay() {
-        document.getElementById('current-word').innerText = currentInput;
+        const inputField = document.getElementById('user-input');
+        inputField.value = inputField.value.slice(0, -1);
         document.getElementById('feedback').innerText = "";
+        inputField.focus();
     }
 
     function shuffleDisplay() {
@@ -366,6 +372,9 @@
     }
 
     function submitWord() {
+        const inputField = document.getElementById('user-input');
+        const currentInput = inputField.value;
+
         if (currentInput.length < 3) {
             showFeedback("La paraula ha de tenir almenys 3 lletres!");
             return;
@@ -377,8 +386,7 @@
 
         if (foundWordsSet.has(normalizedInput)) {
             showFeedback("Ja has trobat aquesta paraula!");
-            currentInput = "";
-            updateDisplay();
+            inputField.value = "";
             return;
         }
 
@@ -395,8 +403,8 @@
             showFeedback("Paraula no vàlida o no inclosa al glossari!");
         }
 
-        currentInput = "";
-        updateDisplay();
+        inputField.value = "";
+        inputField.focus();
     }
 
     function addFoundWord(word, isMaster) {
@@ -447,13 +455,9 @@
     window.addEventListener('DOMContentLoaded', () => {
         initGame();
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Backspace') {
-                deleteLetter();
-            } else if (e.key === 'Enter') {
+        document.getElementById('user-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
                 submitWord();
-            } else if (/^[a-zA-ZçÇàèòáéíóúÀÈÒÁÉÍÓÚ]$/.test(e.key)) {
-                addLetter(e.key.toUpperCase());
             }
         });
     });
