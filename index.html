@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Adhocgrama — Adhoc Cultura</title>
+    <style>
+        :root {
+            --bg-color: #f4f6f8;
+            --card-bg: #ffffff;
+            --primary: #2c3e50;
+            --accent: #e67e22;
+            --success: #2ecc71;
+            --error: #e74c3c;
+            --text: #333333;
+            --border: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            padding: 20px 10px;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 12px;
+        }
+
+        header h1 {
+            font-size: 1.6rem;
+            color: var(--primary);
+        }
+
+        header p {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .info-panel {
+            background-color: #ebf5fb;
+            border-left: 4px solid #3498db;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .letters-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0;
+        }
+
+        .letter-tile {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .input-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.1rem;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        button {
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: white;
+            background-color: var(--accent);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: #d35400;
+        }
+
+        .result-panel {
+            display: none;
+            background-color: #e8f8f5;
+            border: 1px solid var(--success);
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .result-panel h2 {
+            color: #27ae60;
+            margin-bottom: 8px;
+        }
+
+        .definition {
+            font-style: italic;
+            font-size: 0.95rem;
+            margin: 10px 0;
+            color: #444;
+        }
+
+        .share-btn {
+            background-color: var(--success);
+            margin-top: 10px;
+        }
+
+        .share-btn:hover {
+            background-color: #27ae60;
+        }
+
+        .feedback-message {
+            color: var(--error);
+            font-size: 0.9rem;
+            text-align: center;
+            min-height: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>🧠 L'ADHOCGRAMA</h1>
+        <p id="challenge-day">Carregant repte...</p>
+    </header>
+
+    <div class="info-panel">
+        <strong>💡 PISTA:</strong> <span id="hint-text">...</span>
+    </div>
+
+    <div>
+        <p style="text-align: center; font-size: 0.85rem; margin-bottom: 6px; color: #555;">
+            Lletres disponibles:
+        </p>
+        <div class="letters-container" id="letters-box"></div>
+    </div>
+
+    <div class="input-section" id="game-controls">
+        <input type="text" id="user-input" placeholder="Escriu la teva resposta..." autocomplete="off">
+        <button id="submit-btn" onclick="checkAnswer()">Validar Resposta</button>
+        <div class="feedback-message" id="feedback"></div>
+    </div>
+
+    <div class="result-panel" id="result-box">
+        <h2>🎉 Felicitats!</h2>
+        <p>Has trobat la Paraula Mestra: <strong id="master-word"></strong></p>
+        <p class="definition" id="definition-text"></p>
+        <button class="share-btn" onclick="copyResult()">📋 Copiar resultat per al xat</button>
+    </div>
+</div>
+
+<script>
+    // JSON amb els 30 reptes de L'Adhocgrama
+    const reptes = [
+        { dia: 1, lletres: ["U","C","L","R","A","T","U"], pista: "Sense aquest concepte, la nostra feina no tindria cap sentit. (7 lletres)", solucio: "CULTURA", definicio: "L'horitzó i l'àmbit essencial on treballem perquè totes les persones puguin exercir els seus drets culturals." },
+        { dia: 2, lletres: ["P","R","O","P","O","S","I","T"], pista: "Raó que dona sentit al que fem i ens ajuda a decidir quan no hi ha una resposta evident. (8 lletres)", solucio: "PROPOSIT", definicio: "L'horitzó que orienta projectes, decisions i manera de relacionar-nos." },
+        { dia: 3, lletres: ["C","O","C","R","E","A","C","I","O"], pista: "Procés de construir una resposta AMB les persones implicades, i no només per a elles. (9 lletres)", solucio: "COCREACIO", definicio: "Significa posar en relació coneixements, experiències i mirades diferents perquè la resposta final sigui realment compartida." },
+        { dia: 4, lletres: ["A","U","T","O","N","O","M","I","A"], pista: "Capacitat d'actuar i prendre decisions dins d'un marc compartit sense demanar permís constantment. (9 lletres)", solucio: "AUTONOMIA", definicio: "Es construeix amb context, coneixement, autoritat, confiança i responsabilitat." },
+        { dia: 5, lletres: ["C","O","N","T","E","X","T"], pista: "Informació indispensable que permet entendre per què fem una cosa, per a qui i amb quin objectiu. (7 lletres)", solucio: "CONTEXT", definicio: "Donar context abans de donar una tasca és una condició necessària perquè les persones puguin decidir amb criteri." },
+        { dia: 6, lletres: ["C","O","N","F","I","A","N","Ç","A"], pista: "Condició que permet donar espai perquè una altra persona pugui decidir, provar i assumir responsabilitat. (9 lletres)", solucio: "CONFIANÇA", definicio: "No elimina el seguiment ni la necessitat de compartir informació; els fa possibles d'una altra manera." },
+        { dia: 7, lletres: ["R","E","P","T","E"], pista: "Situació que necessita una resposta però que encara no sabem exactament com resoldre. (5 lletres)", solucio: "REPTE", definicio: "Un bon repte no defineix d'entrada la solució: obre un espai perquè puguem comprendre, preguntar, crear i experimentar conjuntament." },
+        { dia: 8, lletres: ["D","I","A","G","N","O","S","I"], pista: "Procés d'entendre què està passant abans de proposar què cal fer. (8 lletres)", solucio: "DIAGNOSI", definicio: "Combina dades, documentació, coneixement, experiències i mirades diverses per construir una lectura compartida del repte." },
+        { dia: 9, lletres: ["E","S","C","O","L","T","A"], pista: "Acció de crear les condicions perquè apareguin necessitats, experiències i punts de vista. (7 lletres)", solucio: "ESCOLTA", definicio: "Escoltar no és només preguntar: és estar disposat a modificar la nostra mirada a partir del que hem estat capaços de sentir." },
+        { dia: 10, lletres: ["E","X","P","E","R","I","M","E","N","T","A","C","I","O"], pista: "Acció de provar una possibilitat per descobrir què passa quan no tenim totes les respostes. (14 lletres)", solucio: "EXPERIMENTACIO", definicio: "Acceptar que no tenim totes les respostes d'entrada i utilitzar la pràctica per generar nou coneixement." },
+        { dia: 11, lletres: ["G","O","V","E","R","N","A","N","Ç","A"], pista: "Manera com una organització decideix qui participa, qui decideix i com es reparteixen les responsabilitats. (10 lletres)", solucio: "GOVERNANÇA", definicio: "Una bona governança fa visibles les regles del joc i permet que les decisions no depenguin sempre d'una única persona." },
+        { dia: 12, lletres: ["L","I","D","E","R","A","T","G","E"], pista: "Capacitat d'assumir responsabilitat sobre un repte i ajudar altres persones a avançar-hi. (9 lletres)", solucio: "LIDERATGE", definicio: "A Adhoc no depèn necessàriament del càrrec o de l'antiguitat, sinó del repte, del coneixement i de la responsabilitat assumida." },
+        { dia: 13, lletres: ["M","E","D","I","A","C","I","O"], pista: "Pràctica de posar en relació persones, institucions i interessos diferents perquè puguin entendre's. (8 lletres)", solucio: "MEDIACIO", definicio: "Mediar no és només connectar: és crear les condicions perquè la relació sigui possible i significativa." },
+        { dia: 14, lletres: ["M","E","N","E","S","T","A","R"], pista: "Acció de transformar una necessitat o aprenentatge en una eina que pugui ser utilitzada i compartida. (8 lletres)", solucio: "MENESTAR", definicio: "Menestem quan una experiència deixa de quedar en un projecte o en el cap d'una persona i es converteix en coneixement útil." },
+        { dia: 15, lletres: ["M","E","N","E","S","T","E","R"], pista: "Nom de la caixa d'eines del coneixement metodològic d'Adhoc Cultura. (8 lletres)", solucio: "MENESTER", definicio: "Recull allò que hem creat, adaptat o après fent projectes i ho converteix en recursos reutilitzables." },
+        { dia: 16, lletres: ["P","A","R","T","I","C","I","P","A","C","I","O"], pista: "Possibilitat real d'intervenir en un procés i incidir en la construcció de respostes. (12 lletres)", solucio: "PARTICIPACIO", definicio: "A Adhoc no és només assistir, opinar o respondre una pregunta, sinó aportar coneixement i capacitat real de decisió." },
+        { dia: 17, lletres: ["P","R","O","T","O","T","I","P"], pista: "Primera forma que donem a una idea perquè la puguem provar, observar i millorar. (8 lletres)", solucio: "PROTOTIP", definicio: "No és una versió deficient del resultat final, sinó una eina per aprendre fent abans de donar una resposta per definitiva." },
+        { dia: 18, lletres: ["R","E","S","P","O","N","S","A","B","I","L","I","T","A","T"], pista: "Compromís d'assumir les conseqüències de les decisions i les accions pròpies. (15 lletres)", solucio: "RESPONSABILITAT", definicio: "Més autonomia implica també més informació, més criteri, més responsabilitat i més capacitat de demanar ajuda quan cal." },
+        { dia: 19, lletres: ["T","R","A","N","S","F","E","R","E","N","C","I","A"], pista: "Procés de convertir allò après perquè una altra persona o organització ho pugui adaptar. (13 lletres)", solucio: "TRANSFERENCIA", definicio: "Transferir és fer que un aprenentatge no acabi amb el projecte que l'ha generat." },
+        { dia: 20, lletres: ["V","I","N","C","L","E"], pista: "Connexió activa entre persones que permet passar de coincidir a relacionar-se, confiar i construir. (6 lletres)", solucio: "VINCLE", definicio: "En Adhoc, crear vincles és essencial per activar comunitats. La metodologia 3H el situa en la dimensió del Heart." },
+        { dia: 21, lletres: ["A","C","A","D","E","M","I","A"], pista: "Espai on parem per pensar allò que fem, aprendre de la pràctica i compartir el coneixement. (8 lletres)", solucio: "ACADEMIA", definicio: "Adhoc Acadèmia connecta projectes, recerca aplicada, formació, experimentació, comunitat i transferència." },
+        { dia: 22, lletres: ["C","O","M","U","N","I","T","A","T"], pista: "Grup de persones que comparteixen un repte i aprenen conjuntament a partir de la seva experiència. (9 lletres)", solucio: "COMUNITAT", definicio: "Una comunitat de pràctica permet passar de compartir informació a compartir problemes i transformar la pràctica." },
+        { dia: 23, lletres: ["C","A","P","A","C","I","T","A","T"], pista: "Coneixement, relacions o eines que continuen existint en l'organització quan el projecte s'acaba. (9 lletres)", solucio: "CAPACITAT", definicio: "La capacitat instal·lada garanteix que les persones i organitzacions queduin més capaces de continuar actuant per elles mateixes." },
+        { dia: 24, lletres: ["F","I","T","X","A"], pista: "Acompanya la Paraula Mestra per donar context i autonomia a un projecte (FCP). (5 lletres)", solucio: "FITXA", definicio: "Eina que recull el propòsit, el repte, els resultats, rols, límits de decisió, calendari, recursos, riscos i avaluació." },
+        { dia: 25, lletres: ["A","V","A","L","U","A","C","I","O"], pista: "Procés d'analitzar els resultats i impactes per aprendre i millorar en el futur. (9 lletres)", solucio: "AVALUACIO", definicio: "És una eina contínua per generar coneixement, valorar l'impacte i orientar decisions futures." },
+        { dia: 26, lletres: ["I","M","P","A","C","T","E"], pista: "Canvi o transformació duradora que un projecte genera en les persones o l'entorn. (7 lletres)", solucio: "IMPACTE", definicio: "Més enllà dels resultats immediats, és la petjada real que millora les capacitats i drets culturals." },
+        { dia: 27, lletres: ["S","O","S","T","E","N","I","B","I","L","I","T","A","T"], pista: "Capacitat d'un projecte de mantenir-se en el temps de manera equilibrada. (14 lletres)", solucio: "SOSTENIBILITAT", definicio: "Equilibri entre recursos econòmics, socials, culturals i ambientals per garantir la continuïtat." },
+        { dia: 28, lletres: ["T","R","A","N","S","P","A","R","E","N","C","I","A"], pista: "Valor de fer visibles els processos, criteris, recursos i preses de decisions. (13 lletres)", solucio: "TRANSPARENCIA", definicio: "Condició indispensable per construir confiança; permet entendre el com i el per què de cada decisió." },
+        { dia: 29, lletres: ["C","O","L","L","A","B","O","R","A","C","I","O"], pista: "Suma d'esforços i coneixements entre diferents agents per assolir un objectiu comú. (12 lletres)", solucio: "COLLABORACIO", definicio: "Generar aliances estructurals on totes les parts aprenen i aporten valor real." },
+        { dia: 30, lletres: ["E","C","O","S","I","S","T","E","M","A"], pista: "Conjunt d'agents, relacions i entorn on desenvolupem la nostra activitat cultural. (10 lletres)", solucio: "ECOSISTEMA", definicio: "Reconeixement que no actuem aïlladament, sinó interconnectats amb el territori." }
+    ];
+
+    // Calcula quin repte toca segons el dia actual de l'any
+    function getTodayChallenge() {
+        const startOfYear = new Date(new Date().getFullYear(), 0, 0);
+        const diff = new Date() - startOfYear;
+        const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const challengeIndex = (dayOfYear - 1) % reptes.length;
+        return reptes[challengeIndex];
+    }
+
+    const currentChallenge = getTodayChallenge();
+
+    // Inicialització de la interfície
+    document.getElementById('challenge-day').innerText = `Repte del Dia #${currentChallenge.dia}`;
+    document.getElementById('hint-text').innerText = currentChallenge.pista;
+
+    const lettersBox = document.getElementById('letters-box');
+    currentChallenge.lletres.forEach(char => {
+        const tile = document.createElement('div');
+        tile.className = 'letter-tile';
+        tile.innerText = char;
+        lettersBox.appendChild(tile);
+    });
+
+    // Normalitzar text (treure accents per a la comparació)
+    function normalizeText(text) {
+        return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase().trim();
+    }
+
+    // Validar resposta de l'usuari
+    function checkAnswer() {
+        const input = document.getElementById('user-input').value;
+        const normalizedInput = normalizeText(input);
+        const normalizedSolution = normalizeText(currentChallenge.solucio);
+
+        if (normalizedInput === normalizedSolution) {
+            document.getElementById('game-controls').style.display = 'none';
+            document.getElementById('result-box').style.display = 'block';
+            document.getElementById('master-word').innerText = currentChallenge.solucio;
+            document.getElementById('definition-text').innerText = `"${currentChallenge.definicio}"`;
+        } else {
+            document.getElementById('feedback').innerText = "Resposta incorrecta. Torna-ho a intentar!";
+        }
+    }
+
+    // Copiar resultat per compartir al xat de l'equip
+    function copyResult() {
+        const textToCopy = `Adhocgrama #${currentChallenge.dia}: 🟢 3/3! Bon dia equip! ☕`;
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            alert('S'ha copiat el resultat al portapapers!');
+        });
+    }
+
+    // Permetre enviar la resposta amb la tecla Enter
+    document.getElementById("user-input").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            checkAnswer();
+        }
+    });
+</script>
+
+</body>
+</html>
