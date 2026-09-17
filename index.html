@@ -244,8 +244,8 @@
     <div class="input-display" id="current-word"></div>
 
     <div class="actions-grid">
-        <button class="btn-delete" onclick="deleteLetter()">BORRAR</button>
-        <button onclick="shuffleDisplay()">MEIXCLAR</button>
+        <button class="btn-delete" onclick="deleteLetter()">ESBORRAR</button>
+        <button onclick="shuffleDisplay()">BARREJAR</button>
         <button class="btn-submit" onclick="submitWord()">ENVIAR</button>
     </div>
 
@@ -266,30 +266,36 @@
 
 <script>
     const reptes = [
-        { 
-            dia: 1, 
-            lletres: ["U","C","L","R","A","T","U"], 
-            pista: "Sense aquest concepte, la nostra feina no tindria cap sentit. (7 lletres)", 
-            solucio: "CULTURA", 
-            definicio: "L'horitzó i l'àmbit essencial on treballem perquè totes les persones puguin exercir els seus drets culturals.",
-            anagrames: ["CURA", "RUTA", "CAR", "CUL", "ALT", "ART", "TAL", "TURA", "CAL", "CLAURA"]
-        },
-        { 
-            dia: 2, 
-            lletres: ["P","R","O","P","O","S","I","T"], 
-            pista: "Raó que dona sentit al que fem i ens ajuda a decidir quan no hi ha una resposta evident. (8 lletres)", 
-            solucio: "PROPÒSIT", 
-            definicio: "L'horitzó que orienta projectes, decisions i manera de relacionar-nos.",
-            anagrames: ["PORT", "PIS", "PRO", "ROP", "OSP", "TOP", "SPOT"]
-        },
-        { 
-            dia: 3, 
-            lletres: ["C","O","C","R","E","A","C","I","O"], 
-            pista: "Procés de construir una resposta AMB les persones implicades, i no només per a elles. (9 lletres)", 
-            solucio: "COCREACIÓ", 
-            definicio: "Significa posar en relació coneixements, experiències i mirades diferents perquè la resposta final sigui realment compartida.",
-            anagrames: ["CREA", "COCA", "OCA", "ROC", "ACCIÓ", "CORE", "ROCA"]
-        }
+        { dia: 1, lletres: ["U","C","L","R","A","T","U"], pista: "Sense aquest concepte, la nostra feina no tindria cap sentit. (7 lletres)", solucio: "CULTURA", definicio: "L'horitzó i l'àmbit essencial on treballem perquè totes les persones puguin exercir els seus drets culturals.", anagrames: ["CURA", "RUTA", "CAR", "CUL", "ALT", "ART", "TAL", "TURA", "CAL", "CLAURA"] },
+        { dia: 2, lletres: ["P","R","O","P","O","S","I","T"], pista: "Raó que dona sentit al que fem i ens ajuda a decidir quan no hi ha una resposta evident. (8 lletres)", solucio: "PROPÒSIT", definicio: "L'horitzó que orienta projectes, decisions i manera de relacionar-nos.", anagrames: ["PORT", "PIS", "PRO", "ROP", "OSP", "TOP", "SPOT"] },
+        { dia: 3, lletres: ["C","O","C","R","E","A","C","I","O"], pista: "Procés de construir una resposta AMB les persones implicades, i no només per a elles. (9 lletres)", solucio: "COCREACIÓ", definicio: "Significa posar en relació coneixements, experiències i mirades diferents perquè la resposta final sigui realment compartida.", anagrames: ["CREA", "COCA", "OCA", "ROC", "ACCIÓ", "CORE", "ROCA"] },
+        { dia: 4, lletres: ["A","U","T","O","N","O","M","I","A"], pista: "Capacitat d'actuar i prendre decisions dins d'un marc compartit. (9 lletres)", solucio: "AUTONOMIA", definicio: "Es construeix amb context, coneixement, autoritat, confiança i responsabilitat.", anagrames: ["MONO", "AUTO", "MAO", "MINA", "NOTA", "MUNT"] },
+        { dia: 5, lletres: ["C","O","N","T","E","X","T"], pista: "Informació indispensable per entendre per què fem una cosa, per a qui i amb quin objectiu. (7 lletres)", solucio: "CONTEXT", definicio: "Donar context abans de donar una tasca és una condició necessària per decidir amb criteri.", anagrames: ["CENT", "NET", "TENT", "COTE"] },
+        { dia: 6, lletres: ["C","O","N","F","I","A","N","Ç","A"], pista: "Condició que permet donar espai perquè una altra persona pugui decidir i provar. (9 lletres)", solucio: "CONFIANÇA", definicio: "Permet fer seguiment i compartir informació d'una altra manera.", anagrames: ["FINCA", "FINA", "CAN", "NOU", "ONA"] },
+        { dia: 7, lletres: ["R","E","P","T","E"], pista: "Situació que necessita una resposta però que encara no sabem com resoldre. (5 lletres)", solucio: "REPTE", definicio: "Un bon repte no defineix d'entrada la solució: obre un espai per comprendre i crear.", anagrames: ["PER", "PET", "TER", "PRE", "RET"] },
+        { dia: 8, lletres: ["D","I","A","G","N","O","S","I"], pista: "Procés d'entendre què està passant abans de proposar què cal fer. (8 lletres)", solucio: "DIAGNOSI", definicio: "Combina dades, documentació, coneixement i experiències per construir una lectura compartida.", anagrames: ["DINA", "ODA", "SON", "DING"] },
+        { dia: 9, lletres: ["E","S","C","O","L","T","A"], pista: "Acció de crear les condicions perquè apareguin necessitats i punts de vista. (7 lletres)", solucio: "ESCOLTA", definicio: "Escoltar no és només preguntar: és estar disposat a modificar la nostra mirada.", anagrames: ["COSTA", "TALES", "CEL", "OLA", "COLA", "TECLA"] },
+        { dia: 10, lletres: ["E","X","P","E","R","I","M","E","N","T","A","C","I","O"], pista: "Provar una possibilitat per descobrir què passa quan no tenim totes les respostes. (14 lletres)", solucio: "EXPERIMENTACIÓ", definicio: "Acceptar que no tenim totes les respostes i utilitzar la pràctica per generar nou coneixement.", anagrames: ["MENT", "AMIC", "PERA", "CERCA", "TEMA", "EINA"] },
+        { dia: 11, lletres: ["G","O","V","E","R","N","A","N","Ç","A"], pista: "Manera com una organització decideix qui participa i qui decideix. (10 lletres)", solucio: "GOVERNANÇA", definicio: "Fa visibles les regles del joc i evita que les decisions depenguin d'una sola persona.", anagrames: ["GOVERN", "ONA", "GRA", "VERA", "NAVE"] },
+        { dia: 12, lletres: ["L","I","D","E","R","A","T","G","E"], pista: "Capacitat d'assumir responsabilitat sobre un repte i ajudar altres persones. (9 lletres)", solucio: "LIDERATGE", definicio: "Depèn del repte, del coneixement i de la responsabilitat assumida.", anagrames: ["EDAT", "DRAG", "TELA", "ERTA", "RETA"] },
+        { dia: 13, lletres: ["M","E","D","I","A","C","I","O"], pista: "Pràctica de posar en relació persones i institucions perquè puguin entendre's. (8 lletres)", solucio: "MEDIACIÓ", definicio: "Crear les condicions perquè la relació sigui possible i significativa.", anagrames: ["MEDI", "CIMA", "DICA", "MIDA", "ODA"] },
+        { dia: 14, lletres: ["M","E","N","E","S","T","A","R"], pista: "Transformar una necessitat o aprenentatge en una eina utilitzable. (8 lletres)", solucio: "MENESTAR", definicio: "Convertir l'experiència en coneixement útil i compartit.", anagrames: ["MENT", "ETAPA", "RES", "SANTA", "MESA"] },
+        { dia: 15, lletres: ["M","E","N","E","S","T","E","R"], pista: "Nom de la caixa d'eines del coneixement metodològic d'Adhoc Cultura. (8 lletres)", solucio: "MENESTER", definicio: "Recull allò que hem creat o après fent projectes en recursos reutilitzables.", anagrames: ["MENT", "SER", "TENS", "RESTA", "MENTRE"] },
+        { dia: 16, lletres: ["P","A","R","T","I","C","I","P","A","C","I","O"], pista: "Possibilitat real d'intervenir en un procés i incidir en la construcció de respostes. (12 lletres)", solucio: "PARTICIPACIÓ", definicio: "Aportar coneixement i capacitat real de decisió.", anagrames: ["PART", "PAPA", "CARTA", "CAPA", "COPA", "PICA"] },
+        { dia: 17, lletres: ["P","R","O","T","O","T","I","P"], pista: "Primera forma que donem a una idea per provar-la i millorar-la. (8 lletres)", solucio: "PROTOTIP", definicio: "Eina per aprendre fent abans de donar una resposta per definitiva.", anagrames: ["PORT", "TRIP", "TIPO", "TOP", "PORTA"] },
+        { dia: 18, lletres: ["R","E","S","P","O","N","S","A","B","I","L","I","T","A","T"], pista: "Compromís d'assumir les conseqüències de les decisions pròpies. (15 lletres)", solucio: "RESPONSABILITAT", definicio: "Més autonomia implica més informació, criteri i capacitat de demanar ajuda.", anagrames: ["POSA", "PISO", "POBLE", "TENS", "TALA", "SOBRE"] },
+        { dia: 19, lletres: ["T","R","A","N","S","F","E","R","E","N","C","I","A"], pista: "Convertir allò après perquè una altra organització ho pugui adaptar. (13 lletres)", solucio: "TRANSFERÈNCIA", definicio: "Fer que un aprenentatge no acabi amb el projecte que l'ha generat.", anagrames: ["TREN", "CARTA", "FER", "TERA", "FERA"] },
+        { dia: 20, lletres: ["V","I","N","C","L","E"], pista: "Connexió activa entre persones que permet confiar i construir. (6 lletres)", solucio: "VINCLE", definicio: "Essencial per activar comunitats. La metodologia 3H el situa al Heart.", anagrames: ["VIC", "LLEI", "CINE", "VIL", "VEI", "NOU"] },
+        { dia: 21, lletres: ["A","C","A","D","E","M","I","A"], pista: "Espai on parem per pensar allò que fem i compartir coneixement. (8 lletres)", solucio: "ACADEMIA", definicio: "Connecta projectes, recerca aplicada, formació i comunitat.", anagrames: ["CADA", "MIDA", "AMIC", "CAMI", "DAMA"] },
+        { dia: 22, lletres: ["C","O","M","U","N","I","T","A","T"], pista: "Grup de persones que comparteixen un repte i aprenen conjuntament. (9 lletres)", solucio: "COMUNITAT", definicio: "Permet passar de compartir informació a transformar la pràctica.", anagrames: ["MUNT", "TOMA", "MINA", "CUNA", "TACO"] },
+        { dia: 23, lletres: ["C","A","P","A","C","I","T","A","T"], pista: "Coneixement o eines que continuen existint quan el projecte s'acaba. (9 lletres)", solucio: "CAPACITAT", definicio: "Garanteix que les persones quedin més capables de continuar actuant per elles mateixes.", anagrames: ["PATA", "CAP", "TAPA", "CATA"] },
+        { dia: 24, lletres: ["F","I","T","X","A"], pista: "Fitxa Compartida de Projecte (FCP). (5 lletres)", solucio: "FITXA", definicio: "Eina que recull el propòsit, repte, resultats, rols i calendari.", anagrames: ["FIA", "FAT", "ITA"] },
+        { dia: 25, lletres: ["A","V","A","L","U","A","C","I","O"], pista: "Analitzar els resultats per aprendre i millorar en el futur. (9 lletres)", solucio: "AVALUACIÓ", definicio: "Eina contínua per generar coneixement i valorar l'impacte.", anagrames: ["VIA", "AULA", "LAVA", "CAU", "CAL", "CUA"] },
+        { dia: 26, lletres: ["I","M","P","A","C","T","E"], pista: "Canvi o transformació duradora que un projecte genera a l'entorn. (7 lletres)", solucio: "IMPACTE", definicio: "Petjada real que millora les capacitats i drets culturals.", anagrames: ["MAPA", "MAC", "CAP", "TEMA", "PECA"] },
+        { dia: 27, lletres: ["S","O","S","T","E","N","I","B","I","L","I","T","A","T"], pista: "Capacitat de mantenir-se en el temps de manera equilibrada. (14 lletres)", solucio: "SOSTENIBILITAT", definicio: "Equilibri entre recursos econòmics, socials i culturals.", anagrames: ["BASTA", "TENT", "LLEI", "SOBRE"] },
+        { dia: 28, lletres: ["T","R","A","N","S","P","A","R","E","N","C","I","A"], pista: "Fer visibles els processos, criteris i preses de decisions. (13 lletres)", solucio: "TRANSPARÈNCIA", definicio: "Permet que tothom entengui el com i el per què de cada decisió.", anagrames: ["CARTA", "TREN", "PAPA", "CAPA", "PART"] },
+        { dia: 29, lletres: ["C","O","L","L","A","B","O","R","A","C","I","O"], pista: "Suma d'esforços entre agents per assolir un objectiu comú. (12 lletres)", solucio: "COLLABORACIÓ", definicio: "Generar aliances on totes les parts aprenen i aporten valor.", anagrames: ["ROCA", "BOCA", "COLA", "LLOC", "BOLA", "OLA"] },
+        { dia: 30, lletres: ["E","C","O","S","I","S","T","E","M","A"], pista: "Agents i entorn on desenvolupem la nostra activitat cultural. (10 lletres)", solucio: "ECOSISTEMA", definicio: "Reconeixement que actuem interconnectats amb el territori.", anagrames: ["COSTA", "MESA", "TEMA", "CEL"] }
     ];
 
     let currentChallenge = null;
@@ -367,7 +373,7 @@
 
         const normalizedInput = normalizeText(currentInput);
         const normalizedMaster = normalizeText(currentChallenge.solucio);
-        const normalizedAnagrams = currentChallenge.anagrames.map(normalizeText);
+        const normalizedAnagrams = (currentChallenge.anagrames || []).map(normalizeText);
 
         if (foundWordsSet.has(normalizedInput)) {
             showFeedback("Ja has trobat aquesta paraula!");
@@ -418,7 +424,7 @@
             
             if (creativeCount >= 3) {
                 document.getElementById('result-title').innerText = "🟢 NIVELL MESTRE (3/3)";
-                document.getElementById('result-desc').innerText = "Has trobat la Paraula Adhoc i més de 3 anagrames creatius!";
+                document.getElementById('result-desc').innerText = "Has trobat la Paraula Adhoc i 3 o més anagrames creatius!";
             } else {
                 document.getElementById('result-title').innerText = "🟡 NIVELL ADHOC (2/3)";
                 document.getElementById('result-desc').innerText = "Has trobat la Paraula Adhoc! Troba " + (3 - creativeCount) + " anagrames més per al Nivell Mestre.";
