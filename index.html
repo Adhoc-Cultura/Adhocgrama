@@ -4,41 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>L'Adhocgrama — Adhoc Cultura</title>
+    <!-- Tipografies Oficials d'Adhoc Cultura -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --bg-color: #f4f6f8;
-            --card-bg: #ffffff;
-            --primary: #2c3e50;
-            --accent: #e67e22;
-            --success: #2ecc71;
-            --error: #e74c3c;
-            --text: #333333;
-            --border: #e0e0e0;
+            --adhoc-yellow: #FFD600;
+            --adhoc-black: #000000;
+            --adhoc-dark-grey: #191919;
+            --adhoc-light-grey: #F4F4F4;
+            --adhoc-white: #FFFFFF;
+            --adhoc-error: #E74C3C;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text);
+            background-color: var(--adhoc-light-grey);
+            color: var(--adhoc-black);
+            font-family: 'Montserrat', sans-serif;
             display: flex;
             justify-content: center;
-            padding: 20px 10px;
+            align-items: center;
             min-height: 100vh;
+            padding: 20px 10px;
         }
 
         .container {
             width: 100%;
-            max-width: 500px;
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            max-width: 480px;
+            background: var(--adhoc-white);
+            border: 3px solid var(--adhoc-black);
+            border-radius: 0px; /* Estil de disseny rotund/ad-hoc */
+            padding: 28px 20px;
+            box-shadow: 6px 6px 0px var(--adhoc-black);
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -46,27 +51,39 @@
 
         header {
             text-align: center;
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 12px;
+            border-bottom: 2px solid var(--adhoc-black);
+            padding-bottom: 16px;
+        }
+
+        .logo {
+            max-width: 180px;
+            height: auto;
+            margin-bottom: 12px;
         }
 
         header h1 {
-            font-size: 1.6rem;
-            color: var(--primary);
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--adhoc-black);
         }
 
-        header p {
-            font-size: 0.85rem;
-            color: #666;
-            margin-top: 4px;
+        .subtitle {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            color: var(--adhoc-dark-grey);
+            margin-top: 2px;
+            text-transform: uppercase;
         }
 
         .info-panel {
-            background-color: #ebf5fb;
-            border-left: 4px solid #3498db;
-            padding: 12px;
-            border-radius: 4px;
-            font-size: 0.9rem;
+            background-color: var(--adhoc-yellow);
+            border: 2px solid var(--adhoc-black);
+            padding: 14px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            line-height: 1.4;
         }
 
         .letters-container {
@@ -74,94 +91,109 @@
             justify-content: center;
             flex-wrap: wrap;
             gap: 8px;
-            margin: 10px 0;
+            margin: 12px 0;
         }
 
         .letter-tile {
-            width: 40px;
-            height: 40px;
-            background: var(--primary);
-            color: white;
-            font-weight: bold;
-            font-size: 1.2rem;
+            width: 44px;
+            height: 44px;
+            background: var(--adhoc-black);
+            color: var(--adhoc-white);
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 6px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 0px;
         }
 
         .input-section {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
 
         input[type="text"] {
             width: 100%;
-            padding: 12px;
-            font-size: 1.1rem;
-            border: 2px solid var(--border);
-            border-radius: 6px;
+            padding: 14px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            border: 2px solid var(--adhoc-black);
+            border-radius: 0px;
             text-align: center;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            background-color: var(--adhoc-white);
         }
 
         input[type="text"]:focus {
             outline: none;
-            border-color: var(--accent);
+            background-color: #FFFDE6;
         }
 
         button {
-            padding: 12px;
-            font-size: 1rem;
-            font-weight: bold;
-            color: white;
-            background-color: var(--accent);
-            border: none;
-            border-radius: 6px;
+            padding: 14px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--adhoc-black);
+            background-color: var(--adhoc-yellow);
+            border: 2px solid var(--adhoc-black);
+            border-radius: 0px;
             cursor: pointer;
-            transition: background 0.2s;
+            box-shadow: 3px 3px 0px var(--adhoc-black);
+            transition: all 0.1s ease;
         }
 
         button:hover {
-            background-color: #d35400;
+            transform: translate(-1px, -1px);
+            box-shadow: 4px 4px 0px var(--adhoc-black);
+        }
+
+        button:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px var(--adhoc-black);
         }
 
         .result-panel {
             display: none;
-            background-color: #e8f8f5;
-            border: 1px solid var(--success);
-            padding: 16px;
-            border-radius: 8px;
+            background-color: var(--adhoc-yellow);
+            border: 2px solid var(--adhoc-black);
+            padding: 20px;
             text-align: center;
         }
 
         .result-panel h2 {
-            color: #27ae60;
-            margin-bottom: 8px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            margin-bottom: 6px;
         }
 
         .definition {
-            font-style: italic;
             font-size: 0.95rem;
-            margin: 10px 0;
-            color: #444;
+            margin: 12px 0;
+            line-height: 1.4;
         }
 
         .share-btn {
-            background-color: var(--success);
+            background-color: var(--adhoc-black);
+            color: var(--adhoc-white);
             margin-top: 10px;
             width: 100%;
         }
 
         .share-btn:hover {
-            background-color: #27ae60;
+            background-color: var(--adhoc-dark-grey);
+            color: var(--adhoc-yellow);
         }
 
         .feedback-message {
-            color: var(--error);
+            color: var(--adhoc-error);
+            font-weight: 600;
             font-size: 0.9rem;
             text-align: center;
             min-height: 20px;
@@ -172,8 +204,9 @@
 
 <div class="container">
     <header>
-        <h1>🧠 L'ADHOCGRAMA</h1>
-        <p id="challenge-day">Carregant repte...</p>
+        <img src="bg-adhoc-cultura-400.png" alt="Adhoc Cultura Logo" class="logo">
+        <h1>L'ADHOCGRAMA</h1>
+        <p class="subtitle" id="challenge-day">CARREGANT REPTE...</p>
     </header>
 
     <div class="info-panel">
@@ -181,23 +214,23 @@
     </div>
 
     <div>
-        <p style="text-align: center; font-size: 0.85rem; margin-bottom: 6px; color: #555;">
+        <p style="text-align: center; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 1px;">
             Lletres desordenades:
         </p>
         <div class="letters-container" id="letters-box"></div>
     </div>
 
     <div class="input-section" id="game-controls">
-        <input type="text" id="user-input" placeholder="Escriu la teva resposta..." autocomplete="off">
-        <button id="submit-btn" onclick="checkAnswer()">Validar Resposta</button>
+        <input type="text" id="user-input" placeholder="ESCRIU LA TEVA RESPOSTA..." autocomplete="off">
+        <button id="submit-btn" onclick="checkAnswer()">VALIDAR RESPOSTA</button>
         <div class="feedback-message" id="feedback"></div>
     </div>
 
     <div class="result-panel" id="result-box">
-        <h2>🎉 Felicitats!</h2>
-        <p>Has trobat la Paraula Mestra: <strong id="master-word"></strong></p>
+        <h2>🎉 FELICITATS!</h2>
+        <p>Has trobat la Paraula Mestra: <strong id="master-word" style="font-family: 'Oswald'; font-size: 1.2rem;"></strong></p>
         <p class="definition" id="definition-text"></p>
-        <button class="share-btn" onclick="copyResult()">📋 Copiar resultat per al xat</button>
+        <button class="share-btn" onclick="copyResult()">📋 COPIAR RESULTAT PER AL XAT</button>
     </div>
 </div>
 
@@ -216,7 +249,7 @@
         { dia: 11, lletres: ["G","O","V","E","R","N","A","N","Ç","A"], pista: "Manera com una organització decideix qui participa, qui decideix i com es reparteixen les responsabilitats. (10 lletres)", solucio: "GOVERNANÇA", definicio: "Una bona governança fa visibles les regles del joc i permet que les decisions no depenguin sempre d'una única persona." },
         { dia: 12, lletres: ["L","I","D","E","R","A","T","G","E"], pista: "Capacitat d'assumir responsabilitat sobre un repte i ajudar altres persones a avançar-hi. (9 lletres)", solucio: "LIDERATGE", definicio: "A Adhoc no depèn necessàriament del càrrec o de l'antiguitat, sinó del repte, del coneixement i de la responsabilitat assumida." },
         { dia: 13, lletres: ["M","E","D","I","A","C","I","O"], pista: "Pràctica de posar en relació persones, institucions i interessos diferents perquè puguin entendre's. (8 lletres)", solucio: "MEDIACIÓ", definicio: "Mediar no és només connectar: és crear les condicions perquè la relació sigui possible i significativa." },
-        { dia: 14, lletres: ["M","E","N","E","S","T","A","R"], pista: "Acció de transformar una necessitat o aprenentatge en una eina que pugui ser utilitzada i compartida. (8 lletres)", solucio: "MENESTAR", definicio: "Menestem quan una experiència deja de quedar en un projecte o en el cap d'una persona i es converteix en coneixement útil." },
+        { dia: 14, lletres: ["M","E","N","E","S","T","A","R"], pista: "Acció de transformar una necessitat o aprenentatge en una eina que pugui ser utilitzada i compartida. (8 lletres)", solucio: "MENESTAR", definicio: "Menestem quan una experiència deixa de quedar en un projecte o en el cap d'una persona i es converteix en coneixement útil." },
         { dia: 15, lletres: ["M","E","N","E","S","T","E","R"], pista: "Nom de la caixa d'eines del coneixement metodològic d'Adhoc Cultura. (8 lletres)", solucio: "MENESTER", definicio: "Recull allò que hem creat, adaptat o après fent projectes i ho converteix en recursos reutilitzables." },
         { dia: 16, lletres: ["P","A","R","T","I","C","I","P","A","C","I","O"], pista: "Possibilitat real d'intervenir en un procés i incidir en la construcció de respostes. (12 lletres)", solucio: "PARTICIPACIÓ", definicio: "A Adhoc no és només assistir, opinar o respondre una pregunta, sinó aportar coneixement i capacitat real de decisió." },
         { dia: 17, lletres: ["P","R","O","T","O","T","I","P"], pista: "Primera forma que donem a una idea perquè la puguem provar, observar i millorar. (8 lletres)", solucio: "PROTOTIP", definicio: "No és una versió deficient del resultat final, sinó una eina per aprendre fent abans de donar una resposta per definitiva." },
@@ -235,7 +268,6 @@
         { dia: 30, lletres: ["E","C","O","S","I","S","T","E","M","A"], pista: "Conjunt d'agents, relacions i entorn on desenvolupem la nostra activitat cultural. (10 lletres)", solucio: "ECOSISTEMA", definicio: "Reconeixement que no actuem aïlladament, sinó interconnectats amb el territori." }
     ];
 
-    // Funció per mesclar un array de forma aleatòria (Fisher-Yates)
     function shuffleArray(array) {
         const arr = [...array];
         for (let i = arr.length - 1; i > 0; i--) {
@@ -243,6 +275,10 @@
             [arr[i], arr[j]] = [arr[j], arr[i]];
         }
         return arr;
+    }
+
+    function normalizeText(text) {
+        return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase().trim();
     }
 
     function initGame() {
@@ -255,10 +291,9 @@
         const challengeIndex = (dayOfYear - 1) % reptes.length;
         window.currentChallenge = reptes[challengeIndex];
 
-        document.getElementById('challenge-day').innerText = "Repte del Dia #" + window.currentChallenge.dia;
+        document.getElementById('challenge-day').innerText = "REPTE DEL DIA #" + window.currentChallenge.dia;
         document.getElementById('hint-text').innerText = window.currentChallenge.pista;
 
-        // Assegura que les lletres es mostrin realment desordenades
         let scrambledLetters = shuffleArray(window.currentChallenge.lletres);
         while (scrambledLetters.join('') === normalizeText(window.currentChallenge.solucio) && scrambledLetters.length > 2) {
             scrambledLetters = shuffleArray(window.currentChallenge.lletres);
@@ -272,10 +307,6 @@
             tile.innerText = char;
             lettersBox.appendChild(tile);
         });
-    }
-
-    function normalizeText(text) {
-        return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase().trim();
     }
 
     function checkAnswer() {
