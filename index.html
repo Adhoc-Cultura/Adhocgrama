@@ -74,6 +74,42 @@
             color: var(--adhoc-dark-grey);
         }
 
+        /* Acordió de regles */
+        details {
+            background-color: var(--adhoc-light-grey);
+            border: 2px solid var(--adhoc-black);
+            padding: 10px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        summary {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .rules-content {
+            margin-top: 10px;
+            border-top: 1px dashed var(--adhoc-black);
+            padding-top: 8px;
+        }
+
+        .rules-content ul {
+            padding-left: 18px;
+            margin-top: 4px;
+        }
+
         .info-panel {
             background-color: var(--adhoc-yellow);
             border: 2px solid var(--adhoc-black);
@@ -111,7 +147,6 @@
             transform: scale(0.9);
         }
 
-        /* Input real interactiu per a mòbil i escriptori */
         .input-real {
             width: 100%;
             height: 52px;
@@ -173,12 +208,27 @@
             min-height: 18px;
         }
 
-        .section-title {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.1rem;
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             border-bottom: 2px solid var(--adhoc-black);
             padding-bottom: 4px;
             margin-top: 8px;
+        }
+
+        .section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+        }
+
+        .section-counter {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            background-color: var(--adhoc-yellow);
+            padding: 2px 6px;
+            border: 1px solid var(--adhoc-black);
         }
 
         .found-words-box {
@@ -236,6 +286,21 @@
         <p class="subtitle" id="challenge-day">CARREGANT REPTE...</p>
     </header>
 
+    <!-- Explicació dels Nivells i Funcionament -->
+    <details>
+        <summary>📖 COM ES JUGA I NIVELLS <span>▼</span></summary>
+        <div class="rules-content">
+            <p><strong>Objectiu del joc:</strong> Trobar paraules combinant les lletres desordenades de la jornada.</p>
+            <br>
+            <p><strong>🎯 Nivells d'Assoliment:</strong></p>
+            <ul>
+                <li>🟢 <strong>3/3 (Nivell Mestre):</strong> Trobar la <em>Paraula Adhoc</em> + almenys 3 <em>anagrames creatius</em> (3+ lletres).</li>
+                <li>🟡 <strong>2/3 (Nivell Adhoc):</strong> Trobar la <em>Paraula Adhoc</em> principal.</li>
+                <li>⚪ <strong>1/3 (Nivell Aprendre):</strong> Trobar només anagrames secundaris.</li>
+            </ul>
+        </div>
+    </details>
+
     <div class="info-panel">
         <strong>💡 PISTA PER A LA PARAULA ADHOC:</strong><br>
         <span id="hint-text">...</span>
@@ -248,7 +313,6 @@
         <div class="letters-container" id="letters-box"></div>
     </div>
 
-    <!-- Entrada real amb suport per a teclat virtual mòbil -->
     <input type="text" id="user-input" class="input-real" placeholder="ESCRIU AQUÍ..." autocomplete="off" spellcheck="false" autofocus>
 
     <div class="actions-grid">
@@ -260,7 +324,10 @@
     <div class="feedback-message" id="feedback"></div>
 
     <div>
-        <div class="section-title">NIVELL CREATIU & EXPERT (PARAULES TROBADES)</div>
+        <div class="section-header">
+            <span class="section-title">PARAULES TROBADES</span>
+            <span class="section-counter" id="creative-counter">CREATIU: 0/3</span>
+        </div>
         <div class="found-words-box" id="found-words"></div>
     </div>
 
@@ -288,7 +355,7 @@
         { dia: 12, lletres: ["L","I","D","E","R","A","T","G","E"], pista: "Capacitat d'assumir responsabilitat sobre un repte i ajudar altres persones. (9 lletres)", solucio: "LIDERATGE", definicio: "Depèn del repte, del coneixement i de la responsabilitat assumida.", anagrames: ["EDAT", "DRAG", "TELA", "ERTA", "RETA"] },
         { dia: 13, lletres: ["M","E","D","I","A","C","I","O"], pista: "Pràctica de posar en relació persones i institucions perquè puguin entendre's. (8 lletres)", solucio: "MEDIACIÓ", definicio: "Crear les condicions perquè la relació sigui possible i significativa.", anagrames: ["MEDI", "CIMA", "DICA", "MIDA", "ODA"] },
         { dia: 14, lletres: ["M","E","N","E","S","T","A","R"], pista: "Transformar una necessitat o aprenentatge en una eina utilitzable. (8 lletres)", solucio: "MENESTAR", definicio: "Convertir l'experiència en coneixement útil i compartit.", anagrames: ["MENT", "ETAPA", "RES", "SANTA", "MESA"] },
-        { dia: 15, lletres: ["M","E","N","E","S","T","E","R"], pista: "Nom de la caixa d'eines del coneixement metodològic d'Adhoc Cultura. (8 lletres)", solucio: "MENESTER", definicio: "Recull allò que hem creat o après fent projectes en recursos reutilitzables.", anagrames: ["MENT", "SER", "TENS", "RESTA", "MENTRE"] },
+        { dia: 15, lletres: ["M","E","N","E","S","T","E","R"], pista: "Nom de la caixa d'eines del coneixement metodològic d'Adhoc Cultura. (8 lletres)", solucio: "MENESTER", definicio: "Recull allò que hem creat o aprendre fent projectes en recursos reutilitzables.", anagrames: ["MENT", "SER", "TENS", "RESTA", "MENTRE"] },
         { dia: 16, lletres: ["P","A","R","T","I","C","I","P","A","C","I","O"], pista: "Possibilitat real d'intervenir en un procés i incidir en la construcció de respostes. (12 lletres)", solucio: "PARTICIPACIÓ", definicio: "Aportar coneixement i capacitat real de decisió.", anagrames: ["PART", "PAPA", "CARTA", "CAPA", "COPA", "PICA"] },
         { dia: 17, lletres: ["P","R","O","T","O","T","I","P"], pista: "Primera forma que donem a una idea per provar-la i millorar-la. (8 lletres)", solucio: "PROTOTIP", definicio: "Eina per aprendre fent abans de donar una resposta per definitiva.", anagrames: ["PORT", "TRIP", "TIPO", "TOP", "PORTA"] },
         { dia: 18, lletres: ["R","E","S","P","O","N","S","A","B","I","L","I","T","A","T"], pista: "Compromís d'assumir les conseqüències de les decisions pròpies. (15 lletres)", solucio: "RESPONSABILITAT", definicio: "Més autonomia implica més informació, criteri i capacitat de demanar ajuda.", anagrames: ["POSA", "PISO", "POBLE", "TENS", "TALA", "SOBRE"] },
@@ -338,6 +405,7 @@
 
         currentScrambled = shuffleArray(currentChallenge.lletres);
         renderLetters();
+        loadProgress();
     }
 
     function renderLetters() {
@@ -394,14 +462,15 @@
             hasMasterWord = true;
             addFoundWord(currentChallenge.solucio, true);
             showFeedback("🎉 Has trobat La Paraula Adhoc!");
-            checkGameEnd();
         } else if (normalizedAnagrams.includes(normalizedInput)) {
             addFoundWord(currentInput, false);
             showFeedback("✨ Bona paraula trobada!");
-            checkGameEnd();
         } else {
             showFeedback("Paraula no vàlida o no inclosa al glossari!");
         }
+
+        saveProgress();
+        updateGameState();
 
         inputField.value = "";
         inputField.focus();
@@ -409,6 +478,8 @@
 
     function addFoundWord(word, isMaster) {
         const normalized = normalizeText(word);
+        if (foundWordsSet.has(normalized)) return;
+        
         foundWordsSet.add(normalized);
 
         const container = document.getElementById('found-words');
@@ -418,12 +489,9 @@
         container.appendChild(badge);
     }
 
-    function showFeedback(msg) {
-        document.getElementById('feedback').innerText = msg;
-    }
-
-    function checkGameEnd() {
+    function updateGameState() {
         const creativeCount = Array.from(foundWordsSet).filter(w => w !== normalizeText(currentChallenge.solucio)).length;
+        document.getElementById('creative-counter').innerText = `CREATIU: ${creativeCount}/3`;
 
         if (hasMasterWord) {
             const resultBox = document.getElementById('result-box');
@@ -436,6 +504,41 @@
             } else {
                 document.getElementById('result-title').innerText = "🟡 NIVELL ADHOC (2/3)";
                 document.getElementById('result-desc').innerText = "Has trobat la Paraula Adhoc! Troba " + (3 - creativeCount) + " anagrames més per al Nivell Mestre.";
+            }
+        }
+    }
+
+    function showFeedback(msg) {
+        document.getElementById('feedback').innerText = msg;
+    }
+
+    // Gestió de persistència amb localStorage
+    function saveProgress() {
+        const dataToSave = {
+            dia: currentChallenge.dia,
+            words: Array.from(foundWordsSet),
+            hasMaster: hasMasterWord
+        };
+        localStorage.setItem('adhocgrama_progress', JSON.stringify(dataToSave));
+    }
+
+    function loadProgress() {
+        const saved = localStorage.getItem('adhocgrama_progress');
+        if (saved) {
+            try {
+                const parsed = JSON.parse(saved);
+                if (parsed.dia === currentChallenge.dia) {
+                    hasMasterWord = parsed.hasMaster || false;
+                    parsed.words.forEach(w => {
+                        const isMaster = (w === normalizeText(currentChallenge.solucio));
+                        addFoundWord(w, isMaster);
+                    });
+                    updateGameState();
+                } else {
+                    localStorage.removeItem('adhocgrama_progress');
+                }
+            } catch(e) {
+                console.error("Error carregant el progrés guardat", e);
             }
         }
     }
